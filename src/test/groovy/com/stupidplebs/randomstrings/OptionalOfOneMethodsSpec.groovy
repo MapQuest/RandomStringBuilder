@@ -111,6 +111,24 @@ class OptionalOfOneMethodsSpec extends Specification {
 
 	}
 
+	def "optionalSpace should append 0 spaces when nextBoolean returns false"() {
+		given:
+		def randomnessProvider = Mock(RandomnessProvider) {
+			1 * nextBoolean() >> false
+			0 * nextInt(_ as Integer)
+		}
+		
+		when:
+		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+			is("Value").
+			optionalSpace().
+			build()
+			
+		then:
+		actualString == 'Value'
+
+	}
+
 	def "optionalCharacterOf should append 1 character when nextBoolean returns true"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
@@ -206,6 +224,22 @@ class OptionalOfOneMethodsSpec extends Specification {
 		when:
 		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
 			optionalWhitespaceCharacter().
+			build()
+			
+		then:
+		actualString == ' '
+
+	}
+
+	def "optionalSpace should append 1 space nextBoolean returns true"() {
+		given:
+		def randomnessProvider = Mock(RandomnessProvider) {
+			1 * nextBoolean() >> true
+		}
+		
+		when:
+		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+			optionalSpace().
 			build()
 			
 		then:
