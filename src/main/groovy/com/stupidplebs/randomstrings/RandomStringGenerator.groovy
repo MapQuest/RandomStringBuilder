@@ -22,8 +22,9 @@ class RandomStringGenerator {
             this.randomnessProvider = randomnessProvider
         }
         
-        public randomUpperLimit(Integer randomUpperLimit) {
+        public Builder randomUpperLimit(Integer randomUpperLimit) {
             this.randomUpperLimit = randomUpperLimit
+			this
         }
         
         public Builder is(s) {
@@ -191,6 +192,30 @@ class RandomStringGenerator {
             randomnessProvider.nextBoolean() ? oneValueOf(m) : this
         }
         
+		public Builder nCharactersOf(s, Integer n) {
+			randomCharactersOf(s, n)
+		}
+		
+		public Builder nLetters(Integer n) {
+			randomCharactersOf(allLetters, n)
+		}
+		
+		public Builder nNumbers(Integer n) {
+			randomCharactersOf(numbers, n)
+		}
+	
+		public Builder nLowercaseLetters(Integer n) {
+			randomCharactersOf(lowercaseLetters, n)			
+		}
+	
+		public Builder nUppercaseLetters(Integer n) {
+			randomCharactersOf(uppercaseLetters, n)
+		}
+	
+		public Builder nWhitespaceCharacters(Integer n) {
+			randomCharactersOf(whitespace, n)
+		}
+		
         public String build() {
             sb.toString()
         }

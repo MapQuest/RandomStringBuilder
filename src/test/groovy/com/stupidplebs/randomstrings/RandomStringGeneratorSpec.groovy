@@ -11,6 +11,21 @@ class RandomStringGeneratorSpec extends Specification {
         }
     }
 
+	def "build should return empty string when no appender calls have been made"() {
+		given:
+		def randomnessProvider = Mock(RandomnessProvider) {
+			0 * _(_)
+		}
+		
+		when:
+		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+			build()
+			
+		then:
+		actualString == ''
+
+	}
+	
     def "is should append without calling randomnessProvider"() {
         given:
         def randomnessProvider = Mock(RandomnessProvider) {
@@ -62,6 +77,26 @@ class RandomStringGeneratorSpec extends Specification {
 
 	}
 		
+	def "changing randomUpperLimit should modify how many characters are appended by default"() {
+		given:
+		def randomnessProvider = Mock(RandomnessProvider) {
+			2 * nextInt(2) >>> [1, 2]
+			1 * nextInt(26) >> 12 
+			2 * nextInt(10) >>> [2, 4] 
+		}
+		
+		when:
+		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+			randomUpperLimit(2).
+			atLeastOneLowercaseLetter().
+			atLeastOneNumber().
+			build()
+			
+		then:
+		actualString == 'm24'
+
+	}
+	
     def "randomCharactersOf should append 1 character from the string when no count parameter is specified"() {
         given:
         def characters = 'stupid'
@@ -1525,12 +1560,11 @@ class RandomStringGeneratorSpec extends Specification {
 		
 		when:
 		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
-			is("Value").
 			optionalCharacterOf('!@#$%').
 			build()
 			
 		then:
-		actualString == 'Value$'
+		actualString == '$'
 
 	}
 		  
@@ -1543,12 +1577,11 @@ class RandomStringGeneratorSpec extends Specification {
 		
 		when:
 		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
-			is("Value").
 			optionalLetter().
 			build()
 			
 		then:
-		actualString == 'Valuem'
+		actualString == 'm'
 
 	}
     
@@ -1561,12 +1594,11 @@ class RandomStringGeneratorSpec extends Specification {
 		
 		when:
 		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
-			is("Value").
 			optionalNumber().
 			build()
 			
 		then:
-		actualString == 'Value8'
+		actualString == '8'
 
 	}
     
@@ -1579,12 +1611,11 @@ class RandomStringGeneratorSpec extends Specification {
 		
 		when:
 		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
-			is("Value").
 			optionalLowercaseLetter().
 			build()
 			
 		then:
-		actualString == 'Valuem'
+		actualString == 'm'
 
 	}
     
@@ -1597,12 +1628,11 @@ class RandomStringGeneratorSpec extends Specification {
 		
 		when:
 		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
-			is("Value").
 			optionalUppercaseLetter().
 			build()
 			
 		then:
-		actualString == 'ValueM'
+		actualString == 'M'
 
 	}
     
@@ -1615,13 +1645,128 @@ class RandomStringGeneratorSpec extends Specification {
 		
 		when:
 		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
-			is("Value").
 			optionalWhitespaceCharacter().
 			build()
 			
 		then:
-		actualString == 'Value '
+		actualString == ' '
 
 	}
 
+	def "charactersOf should append exactly n characters from the supplied string"() {
+		given:
+		def n = 4
+		
+		and:
+		def randomnessProvider = Mock(RandomnessProvider) {
+			n * nextInt(5) >>> [2, 0, 1, 4] // the character indexes to append
+		}
+		
+		when:
+		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+			nCharactersOf('!@#$%', n).
+			build()
+			
+		then:
+		actualString == '#!@%'
+
+	}
+	
+	def "letters should append exactly n letters"() {
+		given:
+		def n = 7 
+		
+		and:
+		def randomnessProvider = Mock(RandomnessProvider) {
+			n * nextInt(52) >>> [12, 13, 24, 25, 1, 2, 51] // the character indexes to append
+		}
+		
+		when:
+		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+			nLetters(n).
+			build()
+			
+		then:
+		actualString == 'mnyzbcZ'
+
+	}
+	
+	def "numbers should append exactly n numbers"() {
+		given:
+		def n = 3
+		
+		and:
+		def randomnessProvider = Mock(RandomnessProvider) {
+			n * nextInt(10) >>> [2, 4, 7] // the character indexes to append
+		}
+		
+		when:
+		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+			nNumbers(n).
+			build()
+			
+		then:
+		actualString == '247'
+
+	}
+	
+	def "lowercaseLetters should append exactly n uppercase letters"() {
+		given:
+		def n = 6
+		
+		and:
+		def randomnessProvider = Mock(RandomnessProvider) {
+			n * nextInt(26) >>> [12, 13, 24, 25, 1, 2] // the character indexes to append
+		}
+		
+		when:
+		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+			nLowercaseLetters(n).
+			build()
+			
+		then:
+		actualString == 'mnyzbc'
+
+
+	}
+	
+	def "uppercaseLetters should append exactly n lowercase letters"() {
+		given:
+		def n = 6
+		
+		and:
+		def randomnessProvider = Mock(RandomnessProvider) {
+			n * nextInt(26) >>> [12, 13, 24, 25, 1, 2, 51] // the character indexes to append
+		}
+		
+		when:
+		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+			nUppercaseLetters(n).
+			build()
+			
+		then:
+		actualString == 'MNYZBC'
+
+
+	}
+	
+	def "whitespaceCharacters should append exactly n whitespace characters"() {
+		given:
+		def n = 6
+		
+		and:
+		def randomnessProvider = Mock(RandomnessProvider) {
+			n * nextInt(2) >>> [0, 1, 1, 0, 1, 0] // the character indexes to append
+		}
+		
+		when:
+		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+			nWhitespaceCharacters(n).
+			build()
+			
+		then:
+		actualString == ' \t\t \t '
+		
+	}
+	
 }
