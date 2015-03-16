@@ -26,9 +26,13 @@ class RandomStringGenerator {
             this.randomUpperLimit = randomUpperLimit
         }
         
-        public Builder value(s) {
+        public Builder is(s) {
             sb.append(s.toString())
             this
+        }
+        
+        public Builder optional(s) {
+            randomnessProvider.nextBoolean() ? is(s) : this
         }
         
         // RANDOM CHARACTERS
@@ -37,42 +41,6 @@ class RandomStringGenerator {
                 s[ randomnessProvider.nextInt(s.length())]
             }.join())
             this
-        }
-        
-        public Builder randomLetters(count=1) {
-            randomCharactersOf(allLetters, count)
-        }
-
-        public Builder randomLetters(ObjectRange range) {
-            randomCharactersOf(allLetters, randomnessProvider.nextInt())
-        }
-
-        public Builder randomNumbers(count=1) {
-            randomCharactersOf(numbers, count)
-        }
-        
-        public Builder randomLowercaseLetters(count=1) {
-            randomCharactersOf(lowercaseLetters, count)
-        }
-
-        public Builder randomUppercaseLetters(count=1) {
-            randomCharactersOf(uppercaseLetters, count)
-        }
-
-        public Builder randomWhitespaceCharacters(count=1) {
-            randomCharactersOf(whitespace, count)
-        }
-        
-        public Builder randomElement(List l) {
-            value(l[randomnessProvider.nextInt(l.size())])
-        }
-        
-        public Builder randomKey(Map m) {
-            value(m.collect{ it.key }[randomnessProvider.nextInt(m.size())])
-        }
-        
-        public Builder randomValue(Map m) {
-            value(m.collect{ it.value }[randomnessProvider.nextInt(m.size())])
         }
         
         // EXACTLY ONE
@@ -98,6 +66,18 @@ class RandomStringGenerator {
         
         public Builder oneWhitespaceCharacter() {
             randomCharactersOf(whitespace, 1)
+        }
+        
+        public Builder oneElementOf(List l) {
+            is(l[randomnessProvider.nextInt(l.size())])
+        }
+        
+        public Builder oneKeyOf(Map m) {
+            is(m.collect{ it.key }[randomnessProvider.nextInt(m.size())])
+        }
+        
+        public Builder oneValueOf(Map m) {
+            is(m.collect{ it.value }[randomnessProvider.nextInt(m.size())])
         }
         
         // ZERO OR MORE
@@ -151,40 +131,64 @@ class RandomStringGenerator {
         }
         
         // OPTIONAL
-        public Builder optionalCharacterOf(s, count=1) {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(s, count) : this
+        public Builder optionalCharactersOf(s, butNoMoreThan=randomUpperLimit) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(s, randomnessProvider.nextInt(butNoMoreThan)) : this
         }
         
-        public Builder optionalLetters(count=1) {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(allLetters, count) : this
+        public Builder optionalLetters(butNoMoreThan=randomUpperLimit) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(allLetters, randomnessProvider.nextInt(butNoMoreThan)) : this
         }
         
-        public Builder optionalNumbers(count=1) {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(numbers, count) : this
+        public Builder optionalNumbers(butNoMoreThan=randomUpperLimit) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(numbers, randomnessProvider.nextInt(butNoMoreThan)) : this
         }
         
-        public Builder optionalLowercaseLetters(count=1) {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(lowercaseLetters, count) : this
+        public Builder optionalLowercaseLetters(butNoMoreThan=randomUpperLimit) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(lowercaseLetters, randomnessProvider.nextInt(butNoMoreThan)) : this
         }
         
-        public Builder optionalUppercaseLetters(count=1) {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(uppercaseLetters, count) : this
+        public Builder optionalUppercaseLetters(butNoMoreThan=randomUpperLimit) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(uppercaseLetters, randomnessProvider.nextInt(butNoMoreThan)) : this
         }
         
-        public Builder optionalWhitespaceCharacters(count=1) {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(whitespace, count) : this
+        public Builder optionalWhitespaceCharacters(butNoMoreThan=randomUpperLimit) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(whitespace, randomnessProvider.nextInt(butNoMoreThan)) : this
         }
         
-        public Builder optionalElement(List l) {
-            randomnessProvider.nextBoolean() ? randomElement(l) : this
+        public Builder optionalCharacterOf(s) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(s, 1) : this
         }
         
-        public Builder optionalKey(Map m) {
-            randomnessProvider.nextBoolean() ? randomKey(m) : this
+        public Builder optionalLetter() {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(allLetters, 1) : this
         }
         
-        public Builder optionalValue(Map m) {
-            randomnessProvider.nextBoolean() ? randomValue(m) : this
+        public Builder optionalNumber() {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(numbers, 1) : this
+        }
+        
+        public Builder optionalLowercaseLetter() {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(lowercaseLetters, 1) : this
+        }
+        
+        public Builder optionalUppercaseLetter() {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(uppercaseLetters, 1) : this
+        }
+        
+        public Builder optionalWhitespaceCharacter() {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(whitespace, 1) : this
+        }
+        
+        public Builder optionalElementOf(List l) {
+            randomnessProvider.nextBoolean() ? oneElementOf(l) : this
+        }
+        
+        public Builder optionalKeyOf(Map m) {
+            randomnessProvider.nextBoolean() ? oneKeyOf(m) : this
+        }
+        
+        public Builder optionalValueOf(Map m) {
+            randomnessProvider.nextBoolean() ? oneValueOf(m) : this
         }
         
         public String build() {
