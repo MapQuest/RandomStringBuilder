@@ -1,11 +1,11 @@
 package com.stupidplebs.randomstrings
 
 class RandomStringGenerator {
-    static final def allLetters = (('a'..'z') + ('A'..'Z')).join()
-    static final def numbers = ('0'..'9').join()
-    static final def lowercaseLetters = ('a'..'z').join()
-    static final def uppercaseLetters = ('A'..'Z').join()
-    static final def whitespace = " \t"
+    static final def ALL_LETTERS = (('a'..'z') + ('A'..'Z')).join()
+    static final def NUMBERS = ('0'..'9').join()
+    static final def LOWERCASE_LETTERS = ('a'..'z').join()
+    static final def UPPERCASE_LETTERS = ('A'..'Z').join()
+    static final def WHITESPACE = " \t"
     
     private RandomStringGenerator() {}
 
@@ -27,46 +27,46 @@ class RandomStringGenerator {
 			this
         }
         
-        public Builder is(s) {
-            sb.append(s.toString())
+        public Builder is(value) {
+            sb.append(value.toString())
             this
         }
         
-        public Builder optional(s) {
-            randomnessProvider.nextBoolean() ? is(s) : this
+        public Builder optional(value) {
+            randomnessProvider.nextBoolean() ? is(value) : this
         }
         
         // RANDOM CHARACTERS
-        public Builder randomCharactersOf(s, count=1) {
-            sb.append((0..<count).collect {
+        public Builder randomCharactersOf(String s, n=1) {
+            sb.append((0..<n).collect {
                 s[ randomnessProvider.nextInt(s.length())]
             }.join())
             this
         }
         
         // EXACTLY ONE
-        public Builder oneCharacterOf(chars) {
+        public Builder oneCharacterOf(String chars) {
             randomCharactersOf(chars, 1)
         }
         
         public Builder oneLetter() {
-            randomCharactersOf(allLetters, 1)
+            randomCharactersOf(ALL_LETTERS, 1)
         }
         
         public Builder oneNumber() {
-            randomCharactersOf(numbers, 1)
+            randomCharactersOf(NUMBERS, 1)
         }
         
         public Builder oneLowercaseLetter() {
-            randomCharactersOf(lowercaseLetters, 1)
+            randomCharactersOf(LOWERCASE_LETTERS, 1)
         }
         
         public Builder oneUppercaseLetter() {
-            randomCharactersOf(uppercaseLetters, 1)
+            randomCharactersOf(UPPERCASE_LETTERS, 1)
         }
         
         public Builder oneWhitespaceCharacter() {
-            randomCharactersOf(whitespace, 1)
+            randomCharactersOf(WHITESPACE, 1)
         }
         
         public Builder oneElementOf(List l) {
@@ -82,102 +82,102 @@ class RandomStringGenerator {
         }
         
         // ZERO OR MORE
-        public Builder zeroOrMoreCharactersOf(s, butNoMoreThan=randomUpperLimit) {
-            randomCharactersOf(s, randomnessProvider.nextInt(butNoMoreThan))
+        public Builder zeroOrMoreCharactersOf(String chars, Integer butNoMoreThan=randomUpperLimit) {
+            randomCharactersOf(chars, randomnessProvider.nextInt(butNoMoreThan))
         }
         
-        public Builder zeroOrMoreLetters(butNoMoreThan=randomUpperLimit) {
-            randomCharactersOf(allLetters, randomnessProvider.nextInt(butNoMoreThan))
+        public Builder zeroOrMoreLetters(Integer butNoMoreThan=randomUpperLimit) {
+            randomCharactersOf(ALL_LETTERS, randomnessProvider.nextInt(butNoMoreThan))
         }
         
-        public Builder zeroOrMoreLowercaseLetters(butNoMoreThan=randomUpperLimit) {
-            randomCharactersOf(lowercaseLetters, randomnessProvider.nextInt(butNoMoreThan))
+        public Builder zeroOrMoreLowercaseLetters(Integer butNoMoreThan=randomUpperLimit) {
+            randomCharactersOf(LOWERCASE_LETTERS, randomnessProvider.nextInt(butNoMoreThan))
         }
         
-        public Builder zeroOrMoreUppercaseLetters(butNoMoreThan=randomUpperLimit) {
-            randomCharactersOf(uppercaseLetters, randomnessProvider.nextInt(butNoMoreThan))
+        public Builder zeroOrMoreUppercaseLetters(Integer butNoMoreThan=randomUpperLimit) {
+            randomCharactersOf(UPPERCASE_LETTERS, randomnessProvider.nextInt(butNoMoreThan))
         }
         
-        public Builder zeroOrMoreNumbers(butNoMoreThan=randomUpperLimit) {
-            randomCharactersOf(numbers, randomnessProvider.nextInt(butNoMoreThan))
+        public Builder zeroOrMoreNumbers(Integer butNoMoreThan=randomUpperLimit) {
+            randomCharactersOf(NUMBERS, randomnessProvider.nextInt(butNoMoreThan))
         }
         
-        public Builder zeroOrMoreWhitespaceCharacters(butNoMoreThan=randomUpperLimit) {
-            randomCharactersOf(whitespace, randomnessProvider.nextInt(butNoMoreThan))
+        public Builder zeroOrMoreWhitespaceCharacters(Integer butNoMoreThan=randomUpperLimit) {
+            randomCharactersOf(WHITESPACE, randomnessProvider.nextInt(butNoMoreThan))
         }
         
         // AT LEAST ONE
-        public Builder atLeastOneCharacterOf(chars, butNoMoreThan=randomUpperLimit) {
+        public Builder atLeastOneCharacterOf(String chars, Integer butNoMoreThan=randomUpperLimit) {
             randomCharactersOf(chars, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
         }
         
-        public Builder atLeastOneLetter(butNoMoreThan=randomUpperLimit) {
-            randomCharactersOf(allLetters, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
+        public Builder atLeastOneLetter(Integer butNoMoreThan=randomUpperLimit) {
+            randomCharactersOf(ALL_LETTERS, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
         }
         
-        public Builder atLeastOneLowercaseLetter(butNoMoreThan=randomUpperLimit) {
-            randomCharactersOf(lowercaseLetters, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
+        public Builder atLeastOneLowercaseLetter(Integer butNoMoreThan=randomUpperLimit) {
+            randomCharactersOf(LOWERCASE_LETTERS, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
         }
         
-        public Builder atLeastOneUppercaseLetter(butNoMoreThan=randomUpperLimit) {
-            randomCharactersOf(uppercaseLetters, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
+        public Builder atLeastOneUppercaseLetter(Integer butNoMoreThan=randomUpperLimit) {
+            randomCharactersOf(UPPERCASE_LETTERS, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
         }
         
-        public Builder atLeastOneNumber(butNoMoreThan=randomUpperLimit) {
-            randomCharactersOf(numbers, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
+        public Builder atLeastOneNumber(Integer butNoMoreThan=randomUpperLimit) {
+            randomCharactersOf(NUMBERS, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
         }
         
-        public Builder atLeastOneWhitespaceCharacter(butNoMoreThan=randomUpperLimit) {
-            randomCharactersOf(whitespace, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
+        public Builder atLeastOneWhitespaceCharacter(Integer butNoMoreThan=randomUpperLimit) {
+            randomCharactersOf(WHITESPACE, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
         }
         
         // OPTIONAL
-        public Builder optionalCharactersOf(s, butNoMoreThan=randomUpperLimit) {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(s, randomnessProvider.nextInt(butNoMoreThan)) : this
+        public Builder optionalCharactersOf(String chars, Integer butNoMoreThan=randomUpperLimit) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(chars, randomnessProvider.nextInt(butNoMoreThan)) : this
         }
         
-        public Builder optionalLetters(butNoMoreThan=randomUpperLimit) {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(allLetters, randomnessProvider.nextInt(butNoMoreThan)) : this
+        public Builder optionalLetters(Integer butNoMoreThan=randomUpperLimit) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(ALL_LETTERS, randomnessProvider.nextInt(butNoMoreThan)) : this
         }
         
-        public Builder optionalNumbers(butNoMoreThan=randomUpperLimit) {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(numbers, randomnessProvider.nextInt(butNoMoreThan)) : this
+        public Builder optionalNumbers(Integer butNoMoreThan=randomUpperLimit) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(NUMBERS, randomnessProvider.nextInt(butNoMoreThan)) : this
         }
         
-        public Builder optionalLowercaseLetters(butNoMoreThan=randomUpperLimit) {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(lowercaseLetters, randomnessProvider.nextInt(butNoMoreThan)) : this
+        public Builder optionalLowercaseLetters(Integer butNoMoreThan=randomUpperLimit) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(LOWERCASE_LETTERS, randomnessProvider.nextInt(butNoMoreThan)) : this
         }
         
-        public Builder optionalUppercaseLetters(butNoMoreThan=randomUpperLimit) {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(uppercaseLetters, randomnessProvider.nextInt(butNoMoreThan)) : this
+        public Builder optionalUppercaseLetters(Integer butNoMoreThan=randomUpperLimit) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(UPPERCASE_LETTERS, randomnessProvider.nextInt(butNoMoreThan)) : this
         }
         
-        public Builder optionalWhitespaceCharacters(butNoMoreThan=randomUpperLimit) {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(whitespace, randomnessProvider.nextInt(butNoMoreThan)) : this
+        public Builder optionalWhitespaceCharacters(Integer butNoMoreThan=randomUpperLimit) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(WHITESPACE, randomnessProvider.nextInt(butNoMoreThan)) : this
         }
         
-        public Builder optionalCharacterOf(s) {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(s, 1) : this
+        public Builder optionalCharacterOf(String chars) {
+            randomnessProvider.nextBoolean() ? randomCharactersOf(chars, 1) : this
         }
         
         public Builder optionalLetter() {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(allLetters, 1) : this
+            randomnessProvider.nextBoolean() ? randomCharactersOf(ALL_LETTERS, 1) : this
         }
         
         public Builder optionalNumber() {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(numbers, 1) : this
+            randomnessProvider.nextBoolean() ? randomCharactersOf(NUMBERS, 1) : this
         }
         
         public Builder optionalLowercaseLetter() {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(lowercaseLetters, 1) : this
+            randomnessProvider.nextBoolean() ? randomCharactersOf(LOWERCASE_LETTERS, 1) : this
         }
         
         public Builder optionalUppercaseLetter() {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(uppercaseLetters, 1) : this
+            randomnessProvider.nextBoolean() ? randomCharactersOf(UPPERCASE_LETTERS, 1) : this
         }
         
         public Builder optionalWhitespaceCharacter() {
-            randomnessProvider.nextBoolean() ? randomCharactersOf(whitespace, 1) : this
+            randomnessProvider.nextBoolean() ? randomCharactersOf(WHITESPACE, 1) : this
         }
         
         public Builder optionalElementOf(List l) {
@@ -192,28 +192,28 @@ class RandomStringGenerator {
             randomnessProvider.nextBoolean() ? oneValueOf(m) : this
         }
         
-		public Builder nCharactersOf(s, Integer n) {
-			randomCharactersOf(s, n)
+		public Builder nCharactersOf(String chars, Integer n) {
+			randomCharactersOf(chars, n)
 		}
 		
 		public Builder nLetters(Integer n) {
-			randomCharactersOf(allLetters, n)
+			randomCharactersOf(ALL_LETTERS, n)
 		}
 		
 		public Builder nNumbers(Integer n) {
-			randomCharactersOf(numbers, n)
+			randomCharactersOf(NUMBERS, n)
 		}
 	
 		public Builder nLowercaseLetters(Integer n) {
-			randomCharactersOf(lowercaseLetters, n)			
+			randomCharactersOf(LOWERCASE_LETTERS, n)			
 		}
 	
 		public Builder nUppercaseLetters(Integer n) {
-			randomCharactersOf(uppercaseLetters, n)
+			randomCharactersOf(UPPERCASE_LETTERS, n)
 		}
 	
 		public Builder nWhitespaceCharacters(Integer n) {
-			randomCharactersOf(whitespace, n)
+			randomCharactersOf(WHITESPACE, n)
 		}
 		
         public String build() {
