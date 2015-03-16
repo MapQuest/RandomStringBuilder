@@ -13,5 +13,8 @@ repositories {
 }
 
 dependencies {
+	compile 'org.codehaus.groovy:groovy-all:2.2.0'
+	
 	testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
+	
 }
