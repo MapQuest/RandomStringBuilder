@@ -13,7 +13,7 @@ class NOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			nCharactersOf('!@#$%', n).
 			build()
 			
@@ -32,7 +32,7 @@ class NOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			nLetters(n).
 			build()
 			
@@ -51,7 +51,7 @@ class NOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			nNumbers(n).
 			build()
 			
@@ -70,7 +70,7 @@ class NOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			nLowercaseLetters(n).
 			build()
 			
@@ -90,7 +90,7 @@ class NOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			nUppercaseLetters(n).
 			build()
 			
@@ -110,7 +110,7 @@ class NOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			nWhitespaceCharacters(n).
 			build()
 			

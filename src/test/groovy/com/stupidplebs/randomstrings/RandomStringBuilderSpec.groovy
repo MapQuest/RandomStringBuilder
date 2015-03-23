@@ -4,7 +4,7 @@ import spock.lang.Specification
 import spock.util.mop.ConfineMetaClassChanges
 
 @ConfineMetaClassChanges(List)
-class RandomStringGeneratorSpec extends Specification {
+class RandomStringBuilderSpec extends Specification {
     def setupSpec() {
         List.metaClass.collectWithIndex = { body->
             [delegate, 0..<delegate.size()].transpose().collect(body)
@@ -18,7 +18,7 @@ class RandomStringGeneratorSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			build()
 			
 		then:
@@ -33,7 +33,7 @@ class RandomStringGeneratorSpec extends Specification {
         }
         
         when:
-        def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+        def actualString = new RandomStringBuilder(randomnessProvider).
             is("Value1").
             is("Value2").
             build()
@@ -50,7 +50,7 @@ class RandomStringGeneratorSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			is("Value1").
 			optional("Value2").
 			build()
@@ -67,7 +67,7 @@ class RandomStringGeneratorSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			is("Value1").
 			optional("Value2").
 			build()
@@ -86,7 +86,7 @@ class RandomStringGeneratorSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			randomUpperLimit(2).
 			atLeastOneLowercaseLetter().
 			atLeastOneNumber().
@@ -107,7 +107,7 @@ class RandomStringGeneratorSpec extends Specification {
         }
         
         when:
-        def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+        def actualString = new RandomStringBuilder(randomnessProvider).
             randomCharactersOf(characters).
             build()
             
@@ -129,7 +129,7 @@ class RandomStringGeneratorSpec extends Specification {
         }
         
         when:
-        def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+        def actualString = new RandomStringBuilder(randomnessProvider).
             randomCharactersOf(characters, count).
             build()
             

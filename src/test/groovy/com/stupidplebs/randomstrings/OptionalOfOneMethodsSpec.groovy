@@ -11,7 +11,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			is("Value").
 			optionalCharacterOf('!@#$%').
 			build()
@@ -29,7 +29,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			is("Value").
 			optionalLetter().
 			build()
@@ -47,7 +47,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			is("Value").
 			optionalNumber().
 			build()
@@ -65,7 +65,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			is("Value").
 			optionalLowercaseLetter().
 			build()
@@ -83,7 +83,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			is("Value").
 			optionalUppercaseLetter().
 			build()
@@ -101,7 +101,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			is("Value").
 			optionalWhitespaceCharacter().
 			build()
@@ -119,7 +119,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			is("Value").
 			optionalSpace().
 			build()
@@ -137,7 +137,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			optionalCharacterOf('!@#$%').
 			build()
 			
@@ -154,7 +154,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			optionalLetter().
 			build()
 			
@@ -171,7 +171,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			optionalNumber().
 			build()
 			
@@ -188,7 +188,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			optionalLowercaseLetter().
 			build()
 			
@@ -205,7 +205,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			optionalUppercaseLetter().
 			build()
 			
@@ -222,7 +222,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			optionalWhitespaceCharacter().
 			build()
 			
@@ -238,7 +238,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			optionalSpace().
 			build()
 			

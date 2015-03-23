@@ -20,7 +20,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneCharacterOf('stupid').
 			build()
 			
@@ -40,7 +40,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneCharacterOf('stupid').
 			build()
 			
@@ -60,7 +60,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneCharacterOf('stupid', butNoMoreThan).
 			build()
 			
@@ -77,7 +77,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneLetter().
 			build()
 			
@@ -97,7 +97,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneLetter().
 			build()
 			
@@ -117,7 +117,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneLetter(butNoMoreThan).
 			build()
 			
@@ -134,7 +134,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneLowercaseLetter().
 			build()
 			
@@ -154,7 +154,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneLowercaseLetter().
 			build()
 			
@@ -174,7 +174,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneLowercaseLetter(butNoMoreThan).
 			build()
 			
@@ -191,7 +191,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneUppercaseLetter().
 			build()
 			
@@ -211,7 +211,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneUppercaseLetter().
 			build()
 			
@@ -231,7 +231,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneUppercaseLetter(butNoMoreThan).
 			build()
 			
@@ -248,7 +248,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneNumber().
 			build()
 			
@@ -268,7 +268,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneNumber().
 			build()
 			
@@ -288,7 +288,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneNumber(butNoMoreThan).
 			build()
 			
@@ -305,7 +305,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneWhitespaceCharacter().
 			build()
 			
@@ -325,7 +325,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneWhitespaceCharacter().
 			build()
 
@@ -345,7 +345,7 @@ class AtLeastOneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			atLeastOneWhitespaceCharacter(butNoMoreThan).
 			build()
 			

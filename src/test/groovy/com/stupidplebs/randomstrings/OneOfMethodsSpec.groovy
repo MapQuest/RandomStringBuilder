@@ -20,7 +20,7 @@ class OneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			oneElementOf(["one", "two", "three", "four"]).
 			build()
 			
@@ -40,7 +40,7 @@ class OneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			oneKeyOf(["one": "foo", "two": "bar", "three": "baz"]).
 			build()
 			
@@ -60,7 +60,7 @@ class OneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			oneValueOf(["one": "foo", "two": "bar", "three": "baz"]).
 			build()
 			
@@ -82,7 +82,7 @@ class OneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			oneCharacterOf(characters).
 			build()
 			
@@ -108,7 +108,7 @@ class OneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			oneLetter().
 			build()
 			
@@ -128,7 +128,7 @@ class OneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			oneNumber().
 			build()
 			
@@ -148,7 +148,7 @@ class OneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			oneLowercaseLetter().
 			build()
 			
@@ -168,7 +168,7 @@ class OneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			oneUppercaseLetter().
 			build()
 			
@@ -188,7 +188,7 @@ class OneOfMethodsSpec extends Specification {
 		}
 		
 		when:
-		def actualString = new RandomStringGenerator.Builder(randomnessProvider).
+		def actualString = new RandomStringBuilder(randomnessProvider).
 			oneWhitespaceCharacter().
 			build()
 			
