@@ -1,10 +1,11 @@
 package com.stupidplebs.randomstrings
 
 class RandomStringBuilder {
-    static final def ALL_LETTERS = (('a'..'z') + ('A'..'Z')).join()
+    static final def LETTERS = (('a'..'z') + ('A'..'Z')).join()
     static final def NUMBERS = ('0'..'9').join()
     static final def LOWERCASE_LETTERS = ('a'..'z').join()
     static final def UPPERCASE_LETTERS = ('A'..'Z').join()
+    static final def ALPHANUMERICS = (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
     static final def WHITESPACE = " \t"
 
     def final RandomnessProvider randomnessProvider
@@ -93,7 +94,16 @@ class RandomStringBuilder {
      * @return
      */
     public RandomStringBuilder oneLetter() {
-        randomCharactersOf(ALL_LETTERS, 1)
+        randomCharactersOf(LETTERS, 1)
+    }
+
+    /**
+     * Append exactly 1 alphanumeric character
+     * 
+     * @return
+     */
+    public RandomStringBuilder oneAlphaNumeric() {
+        randomCharactersOf(ALPHANUMERICS, 1)
     }
 
     /**
@@ -180,7 +190,17 @@ class RandomStringBuilder {
      * @return
      */
     public RandomStringBuilder zeroOrMoreLetters(Integer butNoMoreThan=randomUpperLimit) {
-        randomCharactersOf(ALL_LETTERS, randomnessProvider.nextInt(butNoMoreThan))
+        randomCharactersOf(LETTERS, randomnessProvider.nextInt(butNoMoreThan))
+    }
+
+    /**
+     * Append 0 or more alphanumerics (up to butNoMoreThan)
+     * 
+     * @param butNoMoreThan - the max number of alphanumerics to append, defaulting to the randomUpperLimit
+     * @return
+     */
+    public RandomStringBuilder zeroOrMoreAlphaNumerics(Integer butNoMoreThan=randomUpperLimit) {
+        randomCharactersOf(ALPHANUMERICS, randomnessProvider.nextInt(butNoMoreThan))
     }
 
     /**
@@ -241,7 +261,17 @@ class RandomStringBuilder {
      * @return
      */
     public RandomStringBuilder atLeastOneLetter(Integer butNoMoreThan=randomUpperLimit) {
-        randomCharactersOf(ALL_LETTERS, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
+        randomCharactersOf(LETTERS, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
+    }
+
+    /**
+     * Append 1 or more alphanumerics (up to butNoMoreThan)
+     * 
+     * @param butNoMoreThan - the max number of alphanumerics to append, defaulting to the randomUpperLimit
+     * @return
+     */
+    public RandomStringBuilder atLeastOneAlphaNumeric(Integer butNoMoreThan=randomUpperLimit) {
+        randomCharactersOf(ALPHANUMERICS, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
     }
 
     /**
@@ -306,6 +336,16 @@ class RandomStringBuilder {
     }
 
     /**
+     * Optionally append up to butNoMoreThan alphanumerics
+     *  
+     * @param butNoMoreThan - the max number of alphanumerics to append, defaulting to the randomUpperLimit
+     * @return
+     */
+    public RandomStringBuilder optionalAlphaNumerics(Integer butNoMoreThan=randomUpperLimit) {
+        randomnessProvider.nextBoolean() ? atLeastOneAlphaNumeric(butNoMoreThan) : this
+    }
+
+    /**
      * Optionally append up to butNoMoreThan numbers
      * 
      * @param butNoMoreThan - the max number of numbers to append, defaulting to the randomUpperLimit
@@ -362,6 +402,15 @@ class RandomStringBuilder {
      */
     public RandomStringBuilder optionalLetter() {
         randomnessProvider.nextBoolean() ? oneLetter() : this
+    }
+
+    /**
+     * Optionally append 1 alphanumeric
+     *     
+     * @return
+     */
+    public RandomStringBuilder optionalAlphaNumeric() {
+        randomnessProvider.nextBoolean() ? oneAlphaNumeric() : this
     }
 
     /**
@@ -457,7 +506,17 @@ class RandomStringBuilder {
      * @return
      */
     public RandomStringBuilder nLetters(Integer n) {
-        randomCharactersOf(ALL_LETTERS, n)
+        randomCharactersOf(LETTERS, n)
+    }
+
+    /**
+     * Append n alphanumerics
+     * 
+     * @param n
+     * @return
+     */
+    public RandomStringBuilder nAlphanumerics(Integer n) {
+        randomCharactersOf(ALPHANUMERICS, n)
     }
 
     /**

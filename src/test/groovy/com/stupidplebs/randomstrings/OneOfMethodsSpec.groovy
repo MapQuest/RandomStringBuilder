@@ -120,6 +120,26 @@ class OneOfMethodsSpec extends Specification {
 
 	}
 	
+    def "oneAlphaNumeric should return a single letter or number in the a-zA-Z0-9 range"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            0 * nextBoolean()
+            1 * nextInt(62) >> charIdx
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            oneAlphaNumeric().
+            build()
+            
+        then:
+        actualString == expectedOutput
+
+        where:
+        [charIdx, expectedOutput] << (('a'..'z') + ('A'..'Z') + ('0'..'9')).collectWithIndex { it, idx -> [idx, it] }
+
+    }
+    
 	def "oneNumber should return a single number in the 0-9 range"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {

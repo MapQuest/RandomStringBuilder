@@ -1,8 +1,17 @@
 package com.stupidplebs.randomstrings
 
 import spock.lang.Specification
+import spock.util.mop.ConfineMetaClassChanges
 
+
+@ConfineMetaClassChanges(List)
 class OptionalOfOneMethodsSpec extends Specification {
+    def setupSpec() {
+        List.metaClass.collectWithIndex = { body->
+            [delegate, 0..<delegate.size()].transpose().collect(body)
+        }
+    }
+
 	def "optionalCharacterOf should append 0 characters when nextBoolean returns false"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
@@ -39,6 +48,24 @@ class OptionalOfOneMethodsSpec extends Specification {
 
 	}
 	
+    def "optionalAlphaNumeric should append 0 letters when nextBoolean returns false"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextBoolean() >> false
+            0 * nextInt(_ as Integer)
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            is("Value").
+            optionalAlphaNumeric().
+            build()
+            
+        then:
+        actualString == 'Value'
+
+    }
+    
 	def "optionalNumber should append 0 numbers when nextBoolean returns false"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
@@ -163,6 +190,26 @@ class OptionalOfOneMethodsSpec extends Specification {
 
 	}
 	
+    def "optionalAlphaNumeric should append up 1 alphanumeric when nextBoolean returns true"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextBoolean() >> true
+            1 * nextInt(62) >> charIdx // the character index to append
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            optionalAlphaNumeric().
+            build()
+            
+        then:
+        actualString == expectedOutput
+
+        where:
+        [charIdx, expectedOutput] << (('a'..'z') + ('A'..'Z') + ('0'..'9')).collectWithIndex { it, idx -> [idx, it] }
+
+    }
+    
 	def "optionalNumber should append 1 number nextBoolean returns true"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {

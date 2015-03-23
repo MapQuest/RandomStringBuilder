@@ -109,6 +109,59 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 
 	}
 
+    def "zeroOrMoreAlphaNumerics should append nothing when randomnessProvider.nextInt() returns 0"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextInt(25) >> 0 // how many to alphanumerics append, 0 in this case
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            zeroOrMoreAlphaNumerics().
+            build()
+            
+        then:
+        actualString == ''
+
+    }
+    
+    def "zeroOrMoreAlphaNumerics should append up to randomUpperLimit when butNoMoreThan is not specified"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextInt(25) >> 6 // how many letters to append, up to randomUpperLimit
+            6 * nextInt(62) >>> [0, 25, 26, 51, 52, 61]
+        }
+
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            zeroOrMoreAlphaNumerics().
+            build()
+            
+        then:
+        actualString == 'azAZ09'
+
+    }
+
+    def "zeroOrMoreAlphaNumerics should append up to butNoMoreThan when specified"() {
+        given:
+        def butNoMoreThan = 6
+        
+        and:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextInt(butNoMoreThan) >> 7 // how many letters to append
+            7 * nextInt(62) >>> [0, 25, 26, 51, 1, 52, 61] // the letters to append
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            zeroOrMoreAlphaNumerics(butNoMoreThan).
+            build()
+            
+        then:
+        actualString == 'azAZb09'
+
+    }
+
 	def "zeroOrMoreLowercaseLetters should append nothing when randomnessProvider.nextInt() returns 0"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {

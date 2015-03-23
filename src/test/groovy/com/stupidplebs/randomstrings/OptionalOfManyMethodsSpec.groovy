@@ -50,6 +50,24 @@ class OptionalOfManyMethodsSpec extends Specification {
 
 	}
 	
+    def "optionalAlphaNumerics should append no characters when nextBoolean returns false"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextBoolean() >> false
+            0 * nextInt(_ as Integer)
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            is("Value").
+            optionalAlphaNumerics().
+            build()
+            
+        then:
+        actualString == 'Value'
+
+    }
+    
 	def "optionalNumbers should append no characters when nextBoolean returns false"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
@@ -214,6 +232,25 @@ class OptionalOfManyMethodsSpec extends Specification {
 
 	}
 	
+    def "optionalAlphaNumerics should append up to randomUpperLimit when butNoMoreThan is not specified and nextBoolean returns true"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextBoolean() >> true
+            1 * nextInt(25) >> 6 // how many letters to append
+            6 * nextInt(62) >>> [0, 25, 26, 51, 52, 61] // the character indexes to append
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            is("Value").
+            optionalAlphaNumerics().
+            build()
+            
+        then:
+        actualString == 'ValueazAZ09'
+
+    }
+    
 	def "optionalNumbers should append up to randomUpperLimit when butNoMoreThan is not specified and nextBoolean returns true"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
@@ -388,6 +425,25 @@ class OptionalOfManyMethodsSpec extends Specification {
 
 	}
 	
+    def "optionalAlphaNumerics should append up to butNoMoreThan when specified and nextBoolean returns true"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextBoolean() >> true
+            1 * nextInt(17) >> 6 // how many letters to append
+            6 * nextInt(62) >>> [0, 25, 26, 51, 52, 61] // the character indexes to append
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            is("Value").
+            optionalAlphaNumerics(17).
+            build()
+            
+        then:
+        actualString == 'ValueazAZ09'
+
+    }
+    
 	def "optionalNumbers should append up to butNoMoreThan when specified and nextBoolean returns true"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {

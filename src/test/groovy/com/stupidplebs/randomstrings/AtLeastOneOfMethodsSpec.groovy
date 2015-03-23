@@ -126,6 +126,63 @@ class AtLeastOneOfMethodsSpec extends Specification {
 
 	}
 
+    def "atLeastOneAlphaNumeric should append nothing when randomnessProvider.nextInt() returns 0"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextInt(25) >> 0 // how many alphanumerics to append, 0 in this case
+            1 * nextInt(62) >> charIdx
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            atLeastOneAlphaNumeric().
+            build()
+            
+        then:
+        actualString == expectedOutput
+
+        where:
+        [charIdx, expectedOutput] << (('a'..'z') + ('A'..'Z') + ('0'..'9')).collectWithIndex { it, idx -> [idx, it] }
+        
+    }
+    
+    def "atLeastOneAlphaNumeric should append up to randomUpperLimit when butNoMoreThan is not specified"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextInt(25) >> 6 // how many alphanumerics to append, up to randomUpperLimit
+            6 * nextInt(62) >>> [0, 25, 26, 51, 52, 61]
+        }
+
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            atLeastOneAlphaNumeric().
+            build()
+            
+        then:
+        actualString == 'azAZ09'
+
+    }
+
+    def "atLeastOneAlphaNumeric should append up to butNoMoreThan when specified"() {
+        given:
+        def butNoMoreThan = 4
+        
+        and:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextInt(butNoMoreThan) >> 7 // how many alphanumerics to append
+            7 * nextInt(62) >>> [0, 25, 26, 51, 1, 52, 61] // the alphanumerics to append
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            atLeastOneAlphaNumeric(butNoMoreThan).
+            build()
+            
+        then:
+        actualString == 'azAZb09'
+
+    }
+
 	def "atLeastOneLowercaseLetter should append nothing when randomnessProvider.nextInt() returns 0"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {

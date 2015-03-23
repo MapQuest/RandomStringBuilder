@@ -41,6 +41,25 @@ class NOfMethodsSpec extends Specification {
 
 	}
 	
+    def "nAlphanumerics should append exactly n letters"() {
+        given:
+        def n = 7
+        
+        and:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            n * nextInt(62) >>> [12, 13, 54, 25, 1, 60, 51] // the character indexes to append
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            nAlphanumerics(n).
+            build()
+            
+        then:
+        actualString == 'mn2zb8Z'
+
+    }
+    
 	def "numbers should append exactly n numbers"() {
 		given:
 		def n = 3
