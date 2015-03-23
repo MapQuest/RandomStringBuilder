@@ -1,5 +1,8 @@
 package com.stupidplebs.randomstrings
 
+import com.stupidplebs.randomstrings.provider.JavaUtilRandomnessProvider;
+import com.stupidplebs.randomstrings.provider.RandomnessProvider;
+
 class RandomStringBuilder {
     static final def LETTERS = (('a'..'z') + ('A'..'Z')).join()
     static final def NUMBERS = ('0'..'9').join()

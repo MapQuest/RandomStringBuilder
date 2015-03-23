@@ -1,5 +1,7 @@
 package com.stupidplebs.randomstrings
 
+import com.stupidplebs.randomstrings.provider.RandomnessProvider;
+
 import spock.lang.Specification
 import spock.util.mop.ConfineMetaClassChanges
 

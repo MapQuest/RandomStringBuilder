@@ -1,5 +1,7 @@
 package com.stupidplebs.randomstrings
 
+import com.stupidplebs.randomstrings.provider.RandomnessProvider;
+
 import spock.lang.Specification
 
 class NOfMethodsSpec extends Specification {

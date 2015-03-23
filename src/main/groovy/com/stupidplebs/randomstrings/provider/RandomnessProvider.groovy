@@ -1,4 +1,4 @@
-package com.stupidplebs.randomstrings;
+package com.stupidplebs.randomstrings.provider;
 
 public interface RandomnessProvider {
     Integer nextInt();
