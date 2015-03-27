@@ -1,10 +1,13 @@
 package com.stupidplebs.randomstrings
 
-import com.stupidplebs.randomstrings.provider.RandomnessProvider;
-
+import spock.lang.Shared
 import spock.lang.Specification
 
+import com.stupidplebs.randomstrings.provider.RandomnessProvider
+
 class NOfMethodsSpec extends Specification {
+    @Shared def random = new Random()
+    
 	def "nCharactersOf should append exactly n characters from the supplied string"() {
 		given:
 		def n = 4
@@ -30,7 +33,7 @@ class NOfMethodsSpec extends Specification {
 		
 		and:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			n * nextInt(52) >>> [12, 13, 24, 25, 1, 2, 51] // the character indexes to append
+			n * nextInt(RandomStringBuilder.LETTERS.length()) >>> [12, 13, 24, 25, 1, 2, 51] // the character indexes to append
 		}
 		
 		when:
@@ -49,7 +52,7 @@ class NOfMethodsSpec extends Specification {
         
         and:
         def randomnessProvider = Mock(RandomnessProvider) {
-            n * nextInt(62) >>> [12, 13, 54, 25, 1, 60, 51] // the character indexes to append
+            n * nextInt(RandomStringBuilder.ALPHANUMERICS.length()) >>> [12, 13, 54, 25, 1, 60, 51] // the character indexes to append
         }
         
         when:
@@ -68,7 +71,7 @@ class NOfMethodsSpec extends Specification {
 		
 		and:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			n * nextInt(10) >>> [2, 4, 7] // the character indexes to append
+			n * nextInt(RandomStringBuilder.NUMBERS.length()) >>> [2, 4, 7] // the character indexes to append
 		}
 		
 		when:
@@ -87,7 +90,7 @@ class NOfMethodsSpec extends Specification {
 		
 		and:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			n * nextInt(26) >>> [12, 13, 24, 25, 1, 2] // the character indexes to append
+			n * nextInt(RandomStringBuilder.LOWERCASE_LETTERS.length()) >>> [12, 13, 24, 25, 1, 2] // the character indexes to append
 		}
 		
 		when:
@@ -107,7 +110,7 @@ class NOfMethodsSpec extends Specification {
 		
 		and:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			n * nextInt(26) >>> [12, 13, 24, 25, 1, 2, 51] // the character indexes to append
+			n * nextInt(RandomStringBuilder.UPPERCASE_LETTERS.length()) >>> [12, 13, 24, 25, 1, 2, 51] // the character indexes to append
 		}
 		
 		when:
@@ -127,7 +130,7 @@ class NOfMethodsSpec extends Specification {
 		
 		and:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			n * nextInt(2) >>> [0, 1, 1, 0, 1, 0] // the character indexes to append
+			n * nextInt(RandomStringBuilder.WHITESPACE.length()) >>> [0, 1, 1, 0, 1, 0] // the character indexes to append
 		}
 		
 		when:
@@ -140,4 +143,21 @@ class NOfMethodsSpec extends Specification {
 		
 	}
 	
+    def "nSpaces should append exactly n spaces characters"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider)
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            nSpaces(n).
+            build()
+            
+        then:
+        actualString == ' '.multiply(n)
+        
+        where: "run the test 50 times with random n"
+        n << (1..50).collect { Math.abs(random.nextInt(200)) }
+        
+    }
+    
 }

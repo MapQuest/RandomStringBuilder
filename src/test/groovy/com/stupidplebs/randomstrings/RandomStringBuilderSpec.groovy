@@ -83,8 +83,8 @@ class RandomStringBuilderSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			2 * nextInt(2) >>> [1, 2]
-			1 * nextInt(26) >> 12 
-			2 * nextInt(10) >>> [2, 4] 
+			1 * nextInt(RandomStringBuilder.LOWERCASE_LETTERS.length()) >> 12 
+			2 * nextInt(RandomStringBuilder.NUMBERS.length()) >>> [2, 4] 
 		}
 		
 		when:

@@ -4,16 +4,18 @@ import com.stupidplebs.randomstrings.provider.JavaUtilRandomnessProvider;
 import com.stupidplebs.randomstrings.provider.RandomnessProvider;
 
 class RandomStringBuilder {
+    static final def RANDOM_UPPER_LIMIT = 15
+    
     static final def LETTERS = (('a'..'z') + ('A'..'Z')).join()
     static final def NUMBERS = ('0'..'9').join()
     static final def LOWERCASE_LETTERS = ('a'..'z').join()
     static final def UPPERCASE_LETTERS = ('A'..'Z').join()
     static final def ALPHANUMERICS = (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
     static final def WHITESPACE = " \t"
-
+    
     def final RandomnessProvider randomnessProvider
     def final StringBuilder sb = new StringBuilder()
-    def Integer randomUpperLimit = 25
+    def Integer randomUpperLimit = RANDOM_UPPER_LIMIT
 
     /**
      * Constructor that defaults to using the JDK random number 
@@ -146,6 +148,15 @@ class RandomStringBuilder {
     }
 
     /**
+     * Append exactly 1 space
+     * 
+     * @return
+     */
+    public RandomStringBuilder oneSpace() {
+        randomCharactersOf(' ', 1)
+    }
+
+    /**
      * Append exactly one element of the supplied list
      * 
      * @param l
@@ -247,6 +258,16 @@ class RandomStringBuilder {
     }
 
     /**
+     * Append 0 or more spaces (up to butNoMoreThan)
+     * 
+     * @param butNoMoreThan - the max number of spaces to append, defaulting to the randomUpperLimit
+     * @return
+     */
+    public RandomStringBuilder zeroOrMoreSpaces(Integer butNoMoreThan=randomUpperLimit) {
+        randomCharactersOf(' ', randomnessProvider.nextInt(butNoMoreThan))
+    }
+
+    /**
      * Append 1 or more characters (up to butNoMoreThan) from n
      * 
      * @param chars - 
@@ -315,6 +336,16 @@ class RandomStringBuilder {
      */
     public RandomStringBuilder atLeastOneWhitespaceCharacter(Integer butNoMoreThan=randomUpperLimit) {
         randomCharactersOf(WHITESPACE, randomnessProvider.nextInt(butNoMoreThan) ?: 1)
+    }
+
+    /**
+     * Append 1 or more spaces (up to butNoMoreThan)
+     * 
+     * @param butNoMoreThan - the max number of spaces to append, defaulting to the randomUpperLimit
+     * @return
+     */
+    public RandomStringBuilder atLeastOneSpace(Integer butNoMoreThan=randomUpperLimit) {
+        randomCharactersOf(' ', randomnessProvider.nextInt(butNoMoreThan) ?: 1)
     }
 
     /**
@@ -389,6 +420,16 @@ class RandomStringBuilder {
     }
 
     /**
+     * Optionally append up to butNoMoreThan spaces
+     *  
+     * @param butNoMoreThan - the max number of spaces to append, defaulting to the randomUpperLimit
+     * @return
+     */
+    public RandomStringBuilder optionalSpaces(Integer butNoMoreThan=randomUpperLimit) {
+        randomnessProvider.nextBoolean() ? atLeastOneSpace(butNoMoreThan) : this
+    }
+
+    /**
      * Optionally append 1 character from chars   
      *     
      * @param chars
@@ -458,7 +499,7 @@ class RandomStringBuilder {
      * @return
      */
     public RandomStringBuilder optionalSpace() {
-        randomnessProvider.nextBoolean() ? is(' ') : this
+        randomnessProvider.nextBoolean() ? oneSpace() : this
     }
 
     /**
@@ -560,6 +601,16 @@ class RandomStringBuilder {
      */
     public RandomStringBuilder nWhitespaceCharacters(Integer n) {
         randomCharactersOf(WHITESPACE, n)
+    }
+
+    /**
+     * Append n spaces
+     * 
+     * @param n
+     * @return
+     */
+    public RandomStringBuilder nSpaces(Integer n) {
+        is(' '.multiply(n))
     }
 
     /**

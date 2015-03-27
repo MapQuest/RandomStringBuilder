@@ -106,7 +106,7 @@ class OneOfMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			0 * nextBoolean()
-			1 * nextInt(52) >> charIdx
+			1 * nextInt(RandomStringBuilder.LETTERS.length()) >> charIdx
 		}
 		
 		when:
@@ -126,7 +126,7 @@ class OneOfMethodsSpec extends Specification {
         given:
         def randomnessProvider = Mock(RandomnessProvider) {
             0 * nextBoolean()
-            1 * nextInt(62) >> charIdx
+            1 * nextInt(RandomStringBuilder.ALPHANUMERICS.length()) >> charIdx
         }
         
         when:
@@ -146,7 +146,7 @@ class OneOfMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			0 * nextBoolean()
-			1 * nextInt(10) >> charIdx
+			1 * nextInt(RandomStringBuilder.NUMBERS.length()) >> charIdx
 		}
 		
 		when:
@@ -166,7 +166,7 @@ class OneOfMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			0 * nextBoolean()
-			1 * nextInt(26) >> charIdx
+			1 * nextInt(RandomStringBuilder.LOWERCASE_LETTERS.length()) >> charIdx
 		}
 		
 		when:
@@ -186,7 +186,7 @@ class OneOfMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			0 * nextBoolean()
-			1 * nextInt(26) >> charIdx
+			1 * nextInt(RandomStringBuilder.UPPERCASE_LETTERS.length()) >> charIdx
 		}
 		
 		when:
@@ -206,7 +206,7 @@ class OneOfMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			0 * nextBoolean()
-			1 * nextInt(2) >> charIdx
+			1 * nextInt(RandomStringBuilder.WHITESPACE.length()) >> charIdx
 		}
 		
 		when:
@@ -222,4 +222,21 @@ class OneOfMethodsSpec extends Specification {
 
 	}
 	
+    def "oneSpace should return ' ' when randomnessProvider returns 0"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            0 * nextBoolean()
+            1 * nextInt(1) >> 0
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            oneSpace().
+            build()
+            
+        then:
+        actualString == ' '
+
+    }
+    
 }

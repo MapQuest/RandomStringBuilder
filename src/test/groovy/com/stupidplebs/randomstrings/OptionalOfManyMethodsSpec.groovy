@@ -142,6 +142,24 @@ class OptionalOfManyMethodsSpec extends Specification {
 
 	}
 	
+    def "optionalSpaces should append no spaces when nextBoolean returns false"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextBoolean() >> false
+            0 * nextInt(_ as Integer)
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            is("Value").
+            optionalSpaces().
+            build()
+            
+        then:
+        actualString == 'Value'
+
+    }
+    
 	def "optionalElementOf should append nothing when nextBoolean returns false"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
@@ -200,7 +218,7 @@ class OptionalOfManyMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
-			1 * nextInt(25) >> 3 // how many letters to append
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 3 // how many letters to append
 			3 * nextInt(5) >>> [3, 1, 2] // the character indexes to append
 		}
 		
@@ -219,8 +237,8 @@ class OptionalOfManyMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
-			1 * nextInt(25) >> 4 // how many letters to append
-			4 * nextInt(52) >>> [0, 25, 26, 51] // the character indexes to append
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 4 // how many letters to append
+			4 * nextInt(RandomStringBuilder.LETTERS.length()) >>> [0, 25, 26, 51] // the character indexes to append
 		}
 		
 		when:
@@ -238,8 +256,8 @@ class OptionalOfManyMethodsSpec extends Specification {
         given:
         def randomnessProvider = Mock(RandomnessProvider) {
             1 * nextBoolean() >> true
-            1 * nextInt(25) >> 6 // how many letters to append
-            6 * nextInt(62) >>> [0, 25, 26, 51, 52, 61] // the character indexes to append
+            1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 6 // how many letters to append
+            6 * nextInt(RandomStringBuilder.ALPHANUMERICS.length()) >>> [0, 25, 26, 51, 52, 61] // the character indexes to append
         }
         
         when:
@@ -257,8 +275,8 @@ class OptionalOfManyMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
-			1 * nextInt(25) >> 3 // how many numbers to append
-			3 * nextInt(10) >>> [8, 4, 6] // the character indexes to append
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 3 // how many numbers to append
+			3 * nextInt(RandomStringBuilder.NUMBERS.length()) >>> [8, 4, 6] // the character indexes to append
 		}
 		
 		when:
@@ -276,8 +294,8 @@ class OptionalOfManyMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
-			1 * nextInt(25) >> 4 // how many letters to append
-			4 * nextInt(26) >>> [0, 12, 13, 25] // the character indexes to append
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 4 // how many letters to append
+			4 * nextInt(RandomStringBuilder.LOWERCASE_LETTERS.length()) >>> [0, 12, 13, 25] // the character indexes to append
 		}
 		
 		when:
@@ -295,8 +313,8 @@ class OptionalOfManyMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
-			1 * nextInt(25) >> 4 // how many letters to append
-			4 * nextInt(26) >>> [0, 12, 13, 25] // the character indexes to append
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 4 // how many letters to append
+			4 * nextInt(RandomStringBuilder.UPPERCASE_LETTERS.length()) >>> [0, 12, 13, 25] // the character indexes to append
 		}
 		
 		when:
@@ -314,8 +332,8 @@ class OptionalOfManyMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
-			1 * nextInt(25) >> 4 // how many whitespace chars to append
-			4 * nextInt(2) >>> [0, 1, 1, 0] // the character indexes to append
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 4 // how many whitespace chars to append
+			4 * nextInt(RandomStringBuilder.WHITESPACE.length()) >>> [0, 1, 1, 0] // the character indexes to append
 		}
 		
 		when:
@@ -413,7 +431,7 @@ class OptionalOfManyMethodsSpec extends Specification {
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
 			1 * nextInt(17) >> 4 // how many letters to append
-			4 * nextInt(52) >>> [0, 25, 26, 51] // the character indexes to append
+			4 * nextInt(RandomStringBuilder.LETTERS.length()) >>> [0, 25, 26, 51] // the character indexes to append
 		}
 		
 		when:
@@ -432,7 +450,7 @@ class OptionalOfManyMethodsSpec extends Specification {
         def randomnessProvider = Mock(RandomnessProvider) {
             1 * nextBoolean() >> true
             1 * nextInt(17) >> 6 // how many letters to append
-            6 * nextInt(62) >>> [0, 25, 26, 51, 52, 61] // the character indexes to append
+            6 * nextInt(RandomStringBuilder.ALPHANUMERICS.length()) >>> [0, 25, 26, 51, 52, 61] // the character indexes to append
         }
         
         when:
@@ -451,7 +469,7 @@ class OptionalOfManyMethodsSpec extends Specification {
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
 			1 * nextInt(17) >> 3 // how many numbers to append
-			3 * nextInt(10) >>> [8, 4, 6] // the character indexes to append
+			3 * nextInt(RandomStringBuilder.NUMBERS.length()) >>> [8, 4, 6] // the character indexes to append
 		}
 		
 		when:
@@ -470,7 +488,7 @@ class OptionalOfManyMethodsSpec extends Specification {
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
 			1 * nextInt(17) >> 4 // how many letters to append
-			4 * nextInt(26) >>> [0, 12, 13, 25] // the character indexes to append
+			4 * nextInt(RandomStringBuilder.LOWERCASE_LETTERS.length()) >>> [0, 12, 13, 25] // the character indexes to append
 		}
 		
 		when:
@@ -489,7 +507,7 @@ class OptionalOfManyMethodsSpec extends Specification {
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
 			1 * nextInt(17) >> 4 // how many letters to append
-			4 * nextInt(26) >>> [0, 12, 13, 25] // the character indexes to append
+			4 * nextInt(RandomStringBuilder.UPPERCASE_LETTERS.length()) >>> [0, 12, 13, 25] // the character indexes to append
 		}
 		
 		when:
@@ -508,7 +526,7 @@ class OptionalOfManyMethodsSpec extends Specification {
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
 			1 * nextInt(17) >> 4 // how many whitespace chars to append
-			4 * nextInt(2) >>> [0, 1, 1, 0] // the character indexes to append
+			4 * nextInt(RandomStringBuilder.WHITESPACE.length()) >>> [0, 1, 1, 0] // the character indexes to append
 		}
 		
 		when:
@@ -522,5 +540,23 @@ class OptionalOfManyMethodsSpec extends Specification {
 
 	}
 
+    def "optionalSpaces should append up to butNoMoreThan spaces when specified and nextBoolean returns true"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextBoolean() >> true
+            1 * nextInt(17) >> 4 // how many whitespace chars to append
+            4 * nextInt(1) >> 0 // the character indexes to append
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            is("Value").
+            optionalSpaces(17).
+            build()
+            
+        then:
+        actualString == 'Value    '
+
+    }
 
 }

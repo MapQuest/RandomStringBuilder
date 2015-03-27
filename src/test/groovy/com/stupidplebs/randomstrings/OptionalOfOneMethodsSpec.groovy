@@ -179,7 +179,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
-			1 * nextInt(52) >> 12 // the character index to append
+			1 * nextInt(RandomStringBuilder.LETTERS.length()) >> 12 // the character index to append
 		}
 		
 		when:
@@ -196,7 +196,7 @@ class OptionalOfOneMethodsSpec extends Specification {
         given:
         def randomnessProvider = Mock(RandomnessProvider) {
             1 * nextBoolean() >> true
-            1 * nextInt(62) >> charIdx // the character index to append
+            1 * nextInt(RandomStringBuilder.ALPHANUMERICS.length()) >> charIdx // the character index to append
         }
         
         when:
@@ -216,7 +216,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
-			1 * nextInt(10) >> 8 // the character indexes to append
+			1 * nextInt(RandomStringBuilder.NUMBERS.length()) >> 8 // the character indexes to append
 		}
 		
 		when:
@@ -233,7 +233,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
-			1 * nextInt(26) >> 12 // the character indexes to append
+			1 * nextInt(RandomStringBuilder.LOWERCASE_LETTERS.length()) >> 12 // the character indexes to append
 		}
 		
 		when:
@@ -250,7 +250,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
-			1 * nextInt(26) >> 12 // the character indexes to append
+			1 * nextInt(RandomStringBuilder.UPPERCASE_LETTERS.length()) >> 12 // the character indexes to append
 		}
 		
 		when:
@@ -267,7 +267,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
-			1 * nextInt(2) >> 0 // the character indexes to append
+			1 * nextInt(RandomStringBuilder.WHITESPACE.length()) >> 0 // the character indexes to append
 		}
 		
 		when:
@@ -284,6 +284,7 @@ class OptionalOfOneMethodsSpec extends Specification {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextBoolean() >> true
+            1 * nextInt(1) >> 0 
 		}
 		
 		when:

@@ -8,7 +8,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 	def "zeroOrMoreCharactersOf should append nothing when randomnessProvider.nextInt() returns 0"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			1 * nextInt(25) >> 0
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 0
 		}
 		
 		when:
@@ -24,7 +24,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 	def "zeroOrMoreCharactersOf should append up to randomUpperLimit when butNoMoreThan is not specified"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			1 * nextInt(25) >> 4 // how many letters to append, up to randomUpperLimit
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 4 // how many letters to append, up to randomUpperLimit
 			4 * nextInt(6) >>> [1, 3, 2, 4]
 		}
 		
@@ -61,7 +61,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 	def "zeroOrMoreLetters should append nothing when randomnessProvider.nextInt() returns 0"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			1 * nextInt(25) >> 0 // how many append to return, 0 in this case
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 0 // how many append to return, 0 in this case
 		}
 		
 		when:
@@ -77,8 +77,8 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 	def "zeroOrMoreLetters should append up to randomUpperLimit when butNoMoreThan is not specified"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			1 * nextInt(25) >> 4 // how many letters to append, up to randomUpperLimit
-			4 * nextInt(52) >>> [0, 25, 26, 51]
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 4 // how many letters to append, up to randomUpperLimit
+			4 * nextInt(RandomStringBuilder.LETTERS.length()) >>> [0, 25, 26, 51]
 		}
 
 		when:
@@ -98,7 +98,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 		and:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextInt(butNoMoreThan) >> 5 // how many letters to append
-			5 * nextInt(52) >>> [0, 25, 26, 51, 1] // the letters to append
+			5 * nextInt(RandomStringBuilder.LETTERS.length()) >>> [0, 25, 26, 51, 1] // the letters to append
 		}
 		
 		when:
@@ -114,7 +114,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
     def "zeroOrMoreAlphaNumerics should append nothing when randomnessProvider.nextInt() returns 0"() {
         given:
         def randomnessProvider = Mock(RandomnessProvider) {
-            1 * nextInt(25) >> 0 // how many to alphanumerics append, 0 in this case
+            1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 0 // how many to alphanumerics append, 0 in this case
         }
         
         when:
@@ -130,8 +130,8 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
     def "zeroOrMoreAlphaNumerics should append up to randomUpperLimit when butNoMoreThan is not specified"() {
         given:
         def randomnessProvider = Mock(RandomnessProvider) {
-            1 * nextInt(25) >> 6 // how many letters to append, up to randomUpperLimit
-            6 * nextInt(62) >>> [0, 25, 26, 51, 52, 61]
+            1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 6 // how many letters to append, up to randomUpperLimit
+            6 * nextInt(RandomStringBuilder.ALPHANUMERICS.length()) >>> [0, 25, 26, 51, 52, 61]
         }
 
         when:
@@ -151,7 +151,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
         and:
         def randomnessProvider = Mock(RandomnessProvider) {
             1 * nextInt(butNoMoreThan) >> 7 // how many letters to append
-            7 * nextInt(62) >>> [0, 25, 26, 51, 1, 52, 61] // the letters to append
+            7 * nextInt(RandomStringBuilder.ALPHANUMERICS.length()) >>> [0, 25, 26, 51, 1, 52, 61] // the letters to append
         }
         
         when:
@@ -167,7 +167,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 	def "zeroOrMoreLowercaseLetters should append nothing when randomnessProvider.nextInt() returns 0"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			1 * nextInt(25) >> 0 // how many append to return, 0 in this case
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 0 // how many append to return, 0 in this case
 		}
 		
 		when:
@@ -183,8 +183,8 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 	def "zeroOrMoreLowercaseLetters should append up to randomUpperLimit when butNoMoreThan is not specified"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			1 * nextInt(25) >> 4 // how many letters to append, up to randomUpperLimit
-			4 * nextInt(26) >>> [0, 12, 13, 25]
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 4 // how many letters to append, up to randomUpperLimit
+			4 * nextInt(RandomStringBuilder.LOWERCASE_LETTERS.length()) >>> [0, 12, 13, 25]
 		}
 
 		when:
@@ -204,7 +204,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 		and:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextInt(butNoMoreThan) >> 3 // how many letters to append
-			3 * nextInt(26) >>> [0, 12, 25] // the letters to append
+			3 * nextInt(RandomStringBuilder.LOWERCASE_LETTERS.length()) >>> [0, 12, 25] // the letters to append
 		}
 		
 		when:
@@ -220,7 +220,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 	def "zeroOrMoreUppercaseLetters should append nothing when randomnessProvider.nextInt() returns 0"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			1 * nextInt(25) >> 0 // how many append to return, 0 in this case
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 0 // how many append to return, 0 in this case
 		}
 		
 		when:
@@ -236,8 +236,8 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 	def "zeroOrMoreUppercaseLetters should append up to randomUpperLimit when butNoMoreThan is not specified"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			1 * nextInt(25) >> 4 // how many letters to append, up to randomUpperLimit
-			4 * nextInt(26) >>> [0, 12, 13, 25]
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 4 // how many letters to append, up to randomUpperLimit
+			4 * nextInt(RandomStringBuilder.UPPERCASE_LETTERS.length()) >>> [0, 12, 13, 25]
 		}
 
 		when:
@@ -257,7 +257,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 		and:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextInt(butNoMoreThan) >> 3 // how many letters to append
-			3 * nextInt(26) >>> [0, 12, 25] // the letters to append
+			3 * nextInt(RandomStringBuilder.LOWERCASE_LETTERS.length()) >>> [0, 12, 25] // the letters to append
 		}
 		
 		when:
@@ -273,7 +273,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 	def "zeroOrMoreNumbers should append nothing when randomnessProvider.nextInt() returns 0"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			1 * nextInt(25) >> 0 // how many append to return, 0 in this case
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 0 // how many append to return, 0 in this case
 		}
 		
 		when:
@@ -289,8 +289,8 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 	def "zeroOrMoreNumbers should append up to randomUpperLimit when butNoMoreThan is not specified"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			1 * nextInt(25) >> 4 // how many letters to append, up to randomUpperLimit
-			4 * nextInt(10) >>> [0, 9, 6, 3]
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 4 // how many letters to append, up to randomUpperLimit
+			4 * nextInt(RandomStringBuilder.NUMBERS.length()) >>> [0, 9, 6, 3]
 		}
 
 		when:
@@ -310,7 +310,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 		and:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextInt(butNoMoreThan) >> 3 // how many letters to append
-			3 * nextInt(10) >>> [0, 2, 4] // the letters to append
+			3 * nextInt(RandomStringBuilder.NUMBERS.length()) >>> [0, 2, 4] // the letters to append
 		}
 		
 		when:
@@ -326,7 +326,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 	def "zeroOrMoreWhitespaceCharacters should append nothing when randomnessProvider.nextInt() returns 0"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			1 * nextInt(25) >> 0 // how many append to return, 0 in this case
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 0 // how many append to return, 0 in this case
 		}
 		
 		when:
@@ -342,8 +342,8 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 	def "zeroOrMoreWhitespaceCharacters should append up to randomUpperLimit when butNoMoreThan is not specified"() {
 		given:
 		def randomnessProvider = Mock(RandomnessProvider) {
-			1 * nextInt(25) >> 4 // how many letters to append, up to randomUpperLimit
-			4 * nextInt(2) >>> [1, 0, 0, 1]
+			1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 4 // how many letters to append, up to randomUpperLimit
+			4 * nextInt(RandomStringBuilder.WHITESPACE.length()) >>> [1, 0, 0, 1]
 		}
 
 		when:
@@ -363,7 +363,7 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 		and:
 		def randomnessProvider = Mock(RandomnessProvider) {
 			1 * nextInt(butNoMoreThan) >> 3 // how many letters to append
-			3 * nextInt(2) >>> [0, 0, 1] // the letters to append
+			3 * nextInt(RandomStringBuilder.WHITESPACE.length()) >>> [0, 0, 1] // the letters to append
 		}
 		
 		when:
@@ -376,5 +376,57 @@ class ZeroOrMoreOfMethodsSpec extends Specification {
 
 	}
 
+    def "zeroOrMoreSpaces should append nothing when randomnessProvider.nextInt() returns 0"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 0 // how many append to return, 0 in this case
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            zeroOrMoreSpaces().
+            build()
+            
+        then:
+        actualString == ''
+
+    }
+    
+    def "zeroOrMoreSpaces should append up to randomUpperLimit when butNoMoreThan is not specified"() {
+        given:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextInt(RandomStringBuilder.RANDOM_UPPER_LIMIT) >> 4 // how many spaces to append, up to randomUpperLimit
+            4 * nextInt(1) >> 0
+        }
+
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            zeroOrMoreSpaces().
+            build()
+
+        then:
+        actualString == ' '.multiply(4)
+
+    }
+
+    def "zeroOrMoreSpaces should append up to butNoMoreThan when specified"() {
+        given:
+        def butNoMoreThan = 4
+        
+        and:
+        def randomnessProvider = Mock(RandomnessProvider) {
+            1 * nextInt(butNoMoreThan) >> 3 // how many spaces to append
+            3 * nextInt(1) >> 0 
+        }
+        
+        when:
+        def actualString = new RandomStringBuilder(randomnessProvider).
+            zeroOrMoreSpaces(butNoMoreThan).
+            build()
+            
+        then:
+        actualString == ' '.multiply(3)
+
+    }
 
 }
