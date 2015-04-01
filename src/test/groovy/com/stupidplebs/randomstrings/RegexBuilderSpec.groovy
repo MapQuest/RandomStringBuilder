@@ -24,7 +24,7 @@ class RegexBuilderSpec extends Specification {
                 build()
                 
         expect:
-        regex == "${value}[ ]?[${('a'..'z').join()}]+[0123456789]{$m,$n}($value)?"
+        regex == "${value}[ ]?[a-z]+[0-9]{$m,$n}($value)?"
         
     }
     
@@ -73,11 +73,11 @@ class RegexBuilderSpec extends Specification {
 
         where:
         method                   | pattern
-        "oneLetter"              | (('a'..'z') + ('A'..'Z')).join()
-        "oneAlphaNumeric"        | (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
-        "oneLowercaseLetter"     | ('a'..'z').join()
-        "oneUppercaseLetter"     | ('A'..'Z').join()
-        "oneNumber"              | ('0'..'9').join()
+        "oneLetter"              | "a-zA-Z"
+        "oneAlphaNumeric"        | "a-zA-Z0-9"
+        "oneLowercaseLetter"     | "a-z"
+        "oneUppercaseLetter"     | "A-Z"
+        "oneNumber"              | "0-9"
         "oneWhitespaceCharacter" | " \t"
         "oneSpace"               | " "
     }
@@ -103,11 +103,11 @@ class RegexBuilderSpec extends Specification {
 
         where:
         method                           | pattern
-        "zeroOrMoreLetters"              | (('a'..'z') + ('A'..'Z')).join()
-        "zeroOrMoreAlphaNumerics"        | (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
-        "zeroOrMoreLowercaseLetters"     | ('a'..'z').join()
-        "zeroOrMoreUppercaseLetters"     | ('A'..'Z').join()
-        "zeroOrMoreNumbers"              | ('0'..'9').join()
+        "zeroOrMoreLetters"              | "a-zA-Z"
+        "zeroOrMoreAlphaNumerics"        | "a-zA-Z0-9"
+        "zeroOrMoreLowercaseLetters"     | "a-z"
+        "zeroOrMoreUppercaseLetters"     | "A-Z"
+        "zeroOrMoreNumbers"              | "0-9"
         "zeroOrMoreWhitespaceCharacters" | " \t"
         "zeroOrMoreSpaces"               | " "
         
@@ -134,11 +134,11 @@ class RegexBuilderSpec extends Specification {
 
         where:
         method                          | pattern
-        "atLeastOneLetter"              | (('a'..'z') + ('A'..'Z')).join()
-        "atLeastOneAlphaNumeric"        | (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
-        "atLeastOneLowercaseLetter"     | ('a'..'z').join()
-        "atLeastOneUppercaseLetter"     | ('A'..'Z').join()
-        "atLeastOneNumber"              | ('0'..'9').join()
+        "atLeastOneLetter"              | "a-zA-Z"
+        "atLeastOneAlphaNumeric"        | "a-zA-Z0-9"
+        "atLeastOneLowercaseLetter"     | "a-z"
+        "atLeastOneUppercaseLetter"     | "A-Z"
+        "atLeastOneNumber"              | "0-9"
         "atLeastOneWhitespaceCharacter" | " \t"
         "atLeastOneSpace"               | " "
         
@@ -171,11 +171,11 @@ class RegexBuilderSpec extends Specification {
 
         where:
         method                         | pattern
-        "atLeastNLetters"              | (('a'..'z') + ('A'..'Z')).join()
-        "atLeastNAlphaNumerics"        | (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
-        "atLeastNLowercaseLetters"     | ('a'..'z').join()
-        "atLeastNUppercaseLetters"     | ('A'..'Z').join()
-        "atLeastNNumbers"              | ('0'..'9').join()
+        "atLeastNLetters"              | "a-zA-Z"
+        "atLeastNAlphaNumerics"        | "a-zA-Z0-9"
+        "atLeastNLowercaseLetters"     | "a-z"
+        "atLeastNUppercaseLetters"     | "A-Z"
+        "atLeastNNumbers"              | "0-9"
         "atLeastNWhitespaceCharacters" | " \t"
         "atLeastNSpaces"               | " "
         
@@ -210,11 +210,11 @@ class RegexBuilderSpec extends Specification {
 
         where:
         method                             | pattern
-        "betweenMAndNLetters"              | (('a'..'z') + ('A'..'Z')).join()
-        "betweenMAndNAlphaNumerics"        | (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
-        "betweenMAndNLowercaseLetters"     | ('a'..'z').join()
-        "betweenMAndNUppercaseLetters"     | ('A'..'Z').join()
-        "betweenMAndNNumbers"              | ('0'..'9').join()
+        "betweenMAndNLetters"              | "a-zA-Z"
+        "betweenMAndNAlphaNumerics"        | "a-zA-Z0-9"
+        "betweenMAndNLowercaseLetters"     | "a-z"
+        "betweenMAndNUppercaseLetters"     | "A-Z"
+        "betweenMAndNNumbers"              | "0-9"
         "betweenMAndNWhitespaceCharacters" | " \t"
         "betweenMAndNSpaces"               | " "
         
@@ -247,11 +247,11 @@ class RegexBuilderSpec extends Specification {
 
         where:
         method                  | pattern
-        "nLetters"              | (('a'..'z') + ('A'..'Z')).join()
-        "nAlphaNumerics"        | (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
-        "nLowercaseLetters"     | ('a'..'z').join()
-        "nUppercaseLetters"     | ('A'..'Z').join()
-        "nNumbers"              | ('0'..'9').join()
+        "nLetters"              | "a-zA-Z"
+        "nAlphaNumerics"        | "a-zA-Z0-9"
+        "nLowercaseLetters"     | "a-z"
+        "nUppercaseLetters"     | "A-Z"
+        "nNumbers"              | "0-9"
         "nWhitespaceCharacters" | " \t"
         "nSpaces"               | " "
         
@@ -278,11 +278,11 @@ class RegexBuilderSpec extends Specification {
 
         where:
         method                         | pattern
-        "optionalLetters"              | (('a'..'z') + ('A'..'Z')).join()
-        "optionalAlphaNumerics"        | (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
-        "optionalLowercaseLetters"     | ('a'..'z').join()
-        "optionalUppercaseLetters"     | ('A'..'Z').join()
-        "optionalNumbers"              | ('0'..'9').join()
+        "optionalLetters"              | "a-zA-Z"
+        "optionalAlphaNumerics"        | "a-zA-Z0-9"
+        "optionalLowercaseLetters"     | "a-z"
+        "optionalUppercaseLetters"     | "A-Z"
+        "optionalNumbers"              | "0-9"
         "optionalWhitespaceCharacters" | " \t"
         "optionalSpaces"               | " "
         
@@ -309,11 +309,11 @@ class RegexBuilderSpec extends Specification {
 
         where:
         method                        | pattern
-        "optionalLetter"              | (('a'..'z') + ('A'..'Z')).join()
-        "optionalAlphaNumeric"        | (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
-        "optionalLowercaseLetter"     | ('a'..'z').join()
-        "optionalUppercaseLetter"     | ('A'..'Z').join()
-        "optionalNumber"              | ('0'..'9').join()
+        "optionalLetter"              | "a-zA-Z"
+        "optionalAlphaNumeric"        | "a-zA-Z0-9"
+        "optionalLowercaseLetter"     | "a-z"
+        "optionalUppercaseLetter"     | "A-Z"
+        "optionalNumber"              | "0-9"
         "optionalWhitespaceCharacter" | " \t"
         "optionalSpace"               | " "
         

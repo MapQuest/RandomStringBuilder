@@ -2,11 +2,11 @@ package com.stupidplebs.randomstrings
 
 
 class RegexBuilder {
-    static final def LETTERS = (('a'..'z') + ('A'..'Z')).join()
-    static final def NUMBERS = ('0'..'9').join()
-    static final def LOWERCASE_LETTERS = ('a'..'z').join()
-    static final def UPPERCASE_LETTERS = ('A'..'Z').join()
-    static final def ALPHANUMERICS = (('a'..'z') + ('A'..'Z') + ('0'..'9')).join()
+    static final def LETTERS = "a-zA-Z"
+    static final def NUMBERS = "0-9"
+    static final def LOWERCASE_LETTERS = "a-z"
+    static final def UPPERCASE_LETTERS = "A-Z"
+    static final def ALPHANUMERICS = "a-zA-Z0-9"
     static final def WHITESPACE = " \t"
     
     def final StringBuilder sb = new StringBuilder()
