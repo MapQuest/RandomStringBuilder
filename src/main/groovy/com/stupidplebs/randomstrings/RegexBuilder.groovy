@@ -1,7 +1,5 @@
 package com.stupidplebs.randomstrings
 
-import java.util.List;
-import java.util.Map;
 
 class RegexBuilder {
     static final def LETTERS = (('a'..'z') + ('A'..'Z')).join()
@@ -21,246 +19,278 @@ class RegexBuilder {
      * @param value
      * @return
      */
-    public RandomStringBuilder is(value) {
+    public RegexBuilder is(value) {
         sb.append(value.toString())
         this
     }
     
-    public RandomStringBuilder optional(value) {
+    public RegexBuilder optional(value) {
         sb.append("($value)?")
         this
     }
 
-    public RandomStringBuilder oneCharacterOf(String chars) {
+    public RegexBuilder oneCharacterOf(String chars) {
         sb.append('[').append(chars).append(']')
         this
     }
     
-    public RandomStringBuilder oneLetter() {
+    public RegexBuilder oneLetter() {
         oneCharacterOf(LETTERS)
     }
     
-    public RandomStringBuilder oneAlphaNumeric() {
+    public RegexBuilder oneAlphaNumeric() {
         oneCharacterOf(ALPHANUMERICS)
     }
     
-    public RandomStringBuilder oneLowercaseLetter() {
+    public RegexBuilder oneLowercaseLetter() {
         oneCharacterOf(LOWERCASE_LETTERS)
     }
     
-    public RandomStringBuilder oneUppercaseLetter() {
+    public RegexBuilder oneUppercaseLetter() {
         oneCharacterOf(UPPERCASE_LETTERS)
     }
     
-    public RandomStringBuilder oneNumber() {
+    public RegexBuilder oneNumber() {
         oneCharacterOf(NUMBERS)
     }
     
-    public RandomStringBuilder oneWhitespaceCharacter() {
+    public RegexBuilder oneWhitespaceCharacter() {
         oneCharacterOf(WHITESPACE)
     }
     
-    public RandomStringBuilder zeroOrMoreCharactersOf(String chars) {
+    public RegexBuilder oneSpace() {
+        oneCharacterOf(' ')
+    }
+    
+    public RegexBuilder zeroOrMoreCharactersOf(String chars) {
         sb.append('[').append(chars).append(']*')
         this
     }
     
-    public RandomStringBuilder zeroOrMoreLetters() {
+    public RegexBuilder zeroOrMoreLetters() {
         zeroOrMoreCharactersOf(LETTERS)
     }
     
-    public RandomStringBuilder zeroOrMoreAlphaNumerics() {
+    public RegexBuilder zeroOrMoreAlphaNumerics() {
         zeroOrMoreCharactersOf(ALPHANUMERICS)
     }
     
-    public RandomStringBuilder zeroOrMoreLowercaseLetters() {
+    public RegexBuilder zeroOrMoreLowercaseLetters() {
         zeroOrMoreCharactersOf(LOWERCASE_LETTERS)
     }
     
-    public RandomStringBuilder zeroOrMoreUppercaseLetters() {
+    public RegexBuilder zeroOrMoreUppercaseLetters() {
         zeroOrMoreCharactersOf(UPPERCASE_LETTERS)
     }
     
-    public RandomStringBuilder zeroOrMoreNumbers() {
+    public RegexBuilder zeroOrMoreNumbers() {
         zeroOrMoreCharactersOf(NUMBERS)
     }
     
-    public RandomStringBuilder zeroOrMoreWhitespaceCharacters() {
+    public RegexBuilder zeroOrMoreWhitespaceCharacters() {
         zeroOrMoreCharactersOf(WHITESPACE)
     }
     
-    public RandomStringBuilder atLeastOneCharacterOf(String chars) {
+    public RegexBuilder zeroOrMoreSpaces() {
+        zeroOrMoreCharactersOf(' ')
+    }
+    
+    public RegexBuilder atLeastOneCharacterOf(String chars) {
         sb.append('[').append(chars).append(']+')
         this
     }
     
-    public RandomStringBuilder atLeastOneLetter() {
+    public RegexBuilder atLeastOneLetter() {
         atLeastOneCharacterOf(LETTERS)
     }
     
-    public RandomStringBuilder atLeastOneAlphaNumeric() {
+    public RegexBuilder atLeastOneAlphaNumeric() {
         atLeastOneCharacterOf(ALPHANUMERICS)
     }
     
-    public RandomStringBuilder atLeastOneLowercaseLetter() {
+    public RegexBuilder atLeastOneLowercaseLetter() {
         atLeastOneCharacterOf(LOWERCASE_LETTERS)
     }
     
-    public RandomStringBuilder atLeastOneUppercaseLetter() {
+    public RegexBuilder atLeastOneUppercaseLetter() {
         atLeastOneCharacterOf(UPPERCASE_LETTERS)
     }
     
-    public RandomStringBuilder atLeastOneNumber() {
+    public RegexBuilder atLeastOneNumber() {
         atLeastOneCharacterOf(NUMBERS)
     }
     
-    public RandomStringBuilder atLeastOneWhitespaceCharacter() {
+    public RegexBuilder atLeastOneWhitespaceCharacter() {
         atLeastOneCharacterOf(WHITESPACE)
     }
     
-    public RandomStringBuilder atLeastNCharactersOf(String chars, Integer n) {
+    public RegexBuilder atLeastOneSpace() {
+        atLeastOneCharacterOf(' ')
+    }
+    
+    public RegexBuilder atLeastNCharactersOf(String chars, Integer n) {
         sb.append('[').append(chars).append(']{').append(n).append(',}')
         this
     }
     
-    public RandomStringBuilder atLeastNLetters(Integer n) {
+    public RegexBuilder atLeastNLetters(Integer n) {
         atLeastNCharactersOf(LETTERS, n)
     }
     
-    public RandomStringBuilder atLeastNAlphaNumerics(Integer n) {
+    public RegexBuilder atLeastNAlphaNumerics(Integer n) {
         atLeastNCharactersOf(ALPHANUMERICS, n)
     }
     
-    public RandomStringBuilder atLeastNLowercaseLetters(Integer n) {
+    public RegexBuilder atLeastNLowercaseLetters(Integer n) {
         atLeastNCharactersOf(LOWERCASE_LETTERS, n)
     }
     
-    public RandomStringBuilder atLeastNUppercaseLetters(Integer n) {
+    public RegexBuilder atLeastNUppercaseLetters(Integer n) {
         atLeastNCharactersOf(UPPERCASE_LETTERS, n)
     }
     
-    public RandomStringBuilder atLeastNNumbers(Integer n) {
+    public RegexBuilder atLeastNNumbers(Integer n) {
         atLeastNCharactersOf(NUMBERS, n)
     }
     
-    public RandomStringBuilder atLeastNWhitespaceCharacters(Integer n) {
+    public RegexBuilder atLeastNWhitespaceCharacters(Integer n) {
         atLeastNCharactersOf(WHITESPACE, n)
     }
     
-    public RandomStringBuilder betweenMAndNCharactersOf(String chars, Integer m, Integer n) {
+    public RegexBuilder atLeastNSpaces(Integer n) {
+        atLeastNCharactersOf(' ', n)
+    }
+    
+    public RegexBuilder betweenMAndNCharactersOf(String chars, Integer m, Integer n) {
         sb.append('[').append(chars).append(']{').append(m).append(',').append(n).append('}')
         this
     }
     
-    public RandomStringBuilder betweenMAndNLetters(Integer m, Integer n) {
+    public RegexBuilder betweenMAndNLetters(Integer m, Integer n) {
         betweenMAndNCharactersOf(LETTERS, m, n)
     }
     
-    public RandomStringBuilder betweenMAndNAlphaNumerics(Integer m, Integer n) {
+    public RegexBuilder betweenMAndNAlphaNumerics(Integer m, Integer n) {
         betweenMAndNCharactersOf(ALPHANUMERICS, m, n)
     }
     
-    public RandomStringBuilder betweenMAndNLowercaseLetters(Integer m, Integer n) {
+    public RegexBuilder betweenMAndNLowercaseLetters(Integer m, Integer n) {
         betweenMAndNCharactersOf(LOWERCASE_LETTERS, m, n)
     }
     
-    public RandomStringBuilder betweenMAndNUppercaseLetters(Integer m, Integer n) {
+    public RegexBuilder betweenMAndNUppercaseLetters(Integer m, Integer n) {
         betweenMAndNCharactersOf(UPPERCASE_LETTERS, m, n)
     }
     
-    public RandomStringBuilder betweenMAndNNumbers(Integer m, Integer n) {
+    public RegexBuilder betweenMAndNNumbers(Integer m, Integer n) {
         betweenMAndNCharactersOf(NUMBERS, m, n)
     }
     
-    public RandomStringBuilder betweenMAndNWhitespaceCharacters(Integer m, Integer n) {
+    public RegexBuilder betweenMAndNWhitespaceCharacters(Integer m, Integer n) {
         betweenMAndNCharactersOf(WHITESPACE, m, n)
     }
     
-    public RandomStringBuilder optionalCharactersOf(String chars) {
+    public RegexBuilder betweenMAndNSpaces(Integer m, Integer n) {
+        betweenMAndNCharactersOf(' ', m, n)
+    }
+    
+    public RegexBuilder nLetters(Integer n) {
+        nCharactersOf(LETTERS, n)
+    }
+    
+    public RegexBuilder nAlphaNumerics(Integer n) {
+        nCharactersOf(ALPHANUMERICS, n)
+    }
+    
+    public RegexBuilder nLowercaseLetters(Integer n) {
+        nCharactersOf(LOWERCASE_LETTERS, n)
+    }
+    
+    public RegexBuilder nUppercaseLetters(Integer n) {
+        nCharactersOf(UPPERCASE_LETTERS, n)
+    }
+    
+    public RegexBuilder nNumbers(Integer n) {
+        nCharactersOf(NUMBERS, n)
+    }
+    
+    public RegexBuilder nWhitespaceCharacters(Integer n) {
+        nCharactersOf(WHITESPACE, n)
+    }
+    
+    public RegexBuilder nSpaces(Integer n) {
+        nCharactersOf(' ', n)
+    }
+    
+    public RegexBuilder optionalCharactersOf(String chars) {
         sb.append('([').append(chars).append(']+)?')
         this
     }
     
-    public RandomStringBuilder optionalLetters() {
+    public RegexBuilder optionalLetters() {
         optionalCharactersOf(LETTERS)
     }
     
-    public RandomStringBuilder optionalAlphaNumerics() {
+    public RegexBuilder optionalAlphaNumerics() {
         optionalCharactersOf(ALPHANUMERICS)
     }
     
-    public RandomStringBuilder optionalLowercaseLetters() {
+    public RegexBuilder optionalLowercaseLetters() {
         optionalCharactersOf(LOWERCASE_LETTERS)
     }
     
-    public RandomStringBuilder optionalUppercaseLetters() {
+    public RegexBuilder optionalUppercaseLetters() {
         optionalCharactersOf(UPPERCASE_LETTERS)
     }
     
-    public RandomStringBuilder optionalNumbers() {
+    public RegexBuilder optionalNumbers() {
         optionalCharactersOf(NUMBERS)
     }
     
-    public RandomStringBuilder optionalWhitespaceCharacters() {
+    public RegexBuilder optionalWhitespaceCharacters() {
         optionalCharactersOf(WHITESPACE)
     }
     
-    public RandomStringBuilder optionalCharacterOf(String chars) {
+    public RegexBuilder optionalSpaces() {
+        optionalCharactersOf(' ')
+    }
+    
+    public RegexBuilder optionalCharacterOf(String chars) {
         sb.append('[').append(chars).append(']?')
         this
     }
     
-    public RandomStringBuilder optionalLetter() {
+    public RegexBuilder optionalLetter() {
         optionalCharacterOf(LETTERS)
     }
     
-    public RandomStringBuilder optionalAlphaNumeric() {
+    public RegexBuilder optionalAlphaNumeric() {
         optionalCharacterOf(ALPHANUMERICS)
     }
     
-    public RandomStringBuilder optionalLowercaseLetter() {
+    public RegexBuilder optionalLowercaseLetter() {
         optionalCharacterOf(LOWERCASE_LETTERS)
     }
     
-    public RandomStringBuilder optionalUppercaseLetter() {
+    public RegexBuilder optionalUppercaseLetter() {
         optionalCharacterOf(UPPERCASE_LETTERS)
     }
     
-    public RandomStringBuilder optionalNumber() {
+    public RegexBuilder optionalNumber() {
         optionalCharacterOf(NUMBERS)
     }
     
-    public RandomStringBuilder optionalWhitespaceCharacter() {
+    public RegexBuilder optionalWhitespaceCharacter() {
         optionalCharacterOf(WHITESPACE)
     }
     
-    public RandomStringBuilder nCharactersOf(String chars, Integer n) {
+    public RegexBuilder optionalSpace() {
+        optionalCharacterOf(' ')
+    }
+    
+    public RegexBuilder nCharactersOf(String chars, Integer n) {
         sb.append('[').append(chars).append(']{').append(n).append('}')
         this
-    }
-    
-    public RandomStringBuilder nLetters(Integer n) {
-        nCharactersOf(LETTERS, n)
-    }
-    
-    public RandomStringBuilder nAlphaNumerics(Integer n) {
-        nCharactersOf(ALPHANUMERICS, n)
-    }
-    
-    public RandomStringBuilder nLowercaseLetters(Integer n) {
-        nCharactersOf(LOWERCASE_LETTERS, n)
-    }
-    
-    public RandomStringBuilder nUppercaseLetters(Integer n) {
-        nCharactersOf(UPPERCASE_LETTERS, n)
-    }
-    
-    public RandomStringBuilder nNumbers(Integer n) {
-        nCharactersOf(NUMBERS, n)
-    }
-    
-    public RandomStringBuilder nWhitespaceCharacters(Integer n) {
-        nCharactersOf(WHITESPACE, n)
     }
     
     public String build() {
