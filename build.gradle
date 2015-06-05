@@ -1,11 +1,8 @@
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'groovy'
-
-buildscript {
-	repositories {
-		mavenCentral()
-	}
+plugins {
+	id 'net.saliman.cobertura' version '2.2.7'
+	id 'java'
+	id 'eclipse'
+	id 'groovy'
 }
 
 repositories {
@@ -17,4 +14,11 @@ dependencies {
 	
 	testCompile 'org.spockframework:spock-core:1.0-groovy-2.0'
 	
+	testRuntime "org.slf4j:slf4j-log4j12:1.7.5"
+	testRuntime "log4j:log4j:1.2.7"
+	
+}
+
+cobertura {
+	coverageFormats = ['xml', 'html']
 }
